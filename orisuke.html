@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head><title>折助</title></head>
+<body>
+1行当たりの文字数：<input type="number" id="txtByteOnRow" value="20" class="numeric" /><br/>
+改行前：<br/><textarea id="beforeText"></textarea><br/>
+<input type="button" value="改行する" id="btnSplit" onclick="splitText()"/>
+<input type="button" value="改行前に戻す" id="btnConcat" onclick="concatText()"/>
+<input type="button" value="直前の処理前に戻す" id="btnSplit" onclick="rollbackText()"/>
+<br/>
+改行後：<br/><textarea id="afterText"></textarea><br/>
+改行後行数：<input type="text" id="txtRowCount" class="numeric" readonly><br/>
+<script>
+var rowLen = 0;
+var beforeText = "";
+var afterText = "";
+
+function splitText(){
+	if (!checkRowLenTxt()) return;
+	beforeText = document.getElementById("beforeText").value;
+	afterText = document.getElementById("afterText").value;
+
+	var tailNg = "「『【（＜≪《〈〔［｛“";
+	var tailOk = "っゃゅょぁぃぅぇぉッャュョァィゥェォ、。・？！」』】）＞≫》〉〕］｝”";
+	var byteCount = 0;
+	var resText = "";
+	for (i = 0; i < beforeText.length; i++) {
+		var txt = beforeText[i];
+		var txtlen = (escape(txt).length < 4)?1:2;
+		byteCount += txtlen;
+
+		if (txt=="\n"){
+			byteCount = 0;
+		} else if (byteCount >= rowLen*2) {
+			if (tailNg.indexOf(txt) >= 0){
+				resText += "\n";
+				byteCount = txtlen;
+			}
+			if (byteCount > rowLen*2 && tailOk.indexOf(txt) < 0){
+				resText += "\n";
+				byteCount = txtlen;
+			}
+		}
+		resText += txt;
+	}
+	document.getElementById("afterText").value = resText;
+
+	var rowCount = resText.match(/\n/g).length +1;
+	for (i = resText.length-1;i > 0; i--,rowCount--){
+		if (resText.charAt(i)!="\n"){
+			break;
+		}
+	}
+	document.getElementById("txtRowCount").value = rowCount;
+	document.getElementById("afterText").focus();
+}
+function concatText(){
+	beforeText = document.getElementById("beforeText").value;
+	afterText = document.getElementById("afterText").value;
+
+	var periodStr = "。？！」）”";
+	var resText = "";
+	var beginPos = 0;
+	var nextPos = 0;
+	while (true){
+		nextPos = afterText.indexOf("\n", beginPos);
+		if (nextPos < 0){
+			resText += afterText.substring(beginPos);
+			break;
+		} else if (nextPos > 0 && periodStr.indexOf(afterText[nextPos-1])>=0){
+			resText += afterText.substring(beginPos, nextPos) + "\n";
+		} else {
+			resText += afterText.substring(beginPos, nextPos);
+		}
+		beginPos = nextPos + 1;
+	}
+	document.getElementById("beforeText").value = resText;
+	document.getElementById("beforeText").focus();
+}
+function rollbackText(){
+	document.getElementById("beforeText").value = beforeText;
+	document.getElementById("afterText").value = afterText;
+}
+function checkRowLenTxt(){
+	var rowLenTxt = document.getElementById("txtByteOnRow").value;
+	if (isNaN(rowLenTxt)){
+		alert('1行当たりの文字数は数値で入力してください');
+		return false;
+	}
+	rowLen = parseInt(rowLenTxt, 10);
+	if (rowLen <1) {
+		alert('1行当たりの文字数は1以上の整数で入力してください');
+		return false;
+	}
+	return true;
+}
+</script>
+<style>
+	textarea{
+		width : 600px;
+		height: 200px;
+	}
+@media (max-device-width:500px) {
+	textarea{
+		width : 450px;
+		height: 100px;
+	}
+}
+@media (max-device-width:400px) {
+	textarea{
+		width : 320px;
+		height: 100px;
+	}
+}
+.numeric {
+	text-align:right;
+	width:50px;
+}
+</style>
+</body>
+</html>
