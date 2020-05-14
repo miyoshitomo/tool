@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<head><title>Ü•</title></head>
+<head><title>æŠ˜åŠ©</title></head>
 <body>
-1s“–‚½‚è‚Ì•¶š”F<input type="number" id="txtByteOnRow" value="20" class="numeric" /><br/>
-‰üs‘OF<br/><textarea id="beforeText"></textarea><br/>
-<input type="button" value="‰üs‚·‚é" id="btnSplit" onclick="splitText()"/>
-<input type="button" value="‰üs‘O‚É–ß‚·" id="btnConcat" onclick="concatText()"/>
-<input type="button" value="’¼‘O‚Ìˆ—‘O‚É–ß‚·" id="btnSplit" onclick="rollbackText()"/>
+1è¡Œå½“ãŸã‚Šã®æ–‡å­—æ•°ï¼š<input type="number" id="txtByteOnRow" value="20" class="numeric" /><br/>
+æ”¹è¡Œå‰ï¼š<br/><textarea id="beforeText"></textarea><br/>
+<input type="button" value="æ”¹è¡Œã™ã‚‹" id="btnSplit" onclick="splitText()"/>
+<input type="button" value="æ”¹è¡Œå‰ã«æˆ»ã™" id="btnConcat" onclick="concatText()"/>
+<input type="button" value="ç›´å‰ã®å‡¦ç†å‰ã«æˆ»ã™" id="btnSplit" onclick="rollbackText()"/>
 <br/>
-‰üsŒãF<br/><textarea id="afterText"></textarea><br/>
-‰üsŒãs”F<input type="text" id="txtRowCount" class="numeric" readonly><br/>
+æ”¹è¡Œå¾Œï¼š<br/><textarea id="afterText"></textarea><br/>
+æ”¹è¡Œå¾Œè¡Œæ•°ï¼š<input type="text" id="txtRowCount" class="numeric" readonly><br/>
 <script>
 var rowLen = 0;
 var beforeText = "";
@@ -21,8 +22,8 @@ function splitText(){
 	beforeText = document.getElementById("beforeText").value;
 	afterText = document.getElementById("afterText").value;
 
-	var tailNg = "uwyiƒásqkmog";
-	var tailOk = "‚Á‚á‚ã‚å‚Ÿ‚¡‚£‚¥‚§ƒbƒƒƒ…ƒ‡ƒ@ƒBƒDƒFƒHABEHIvxzj„âtrlnph";
+	var tailNg = "ã€Œã€ã€ï¼ˆï¼œâ‰ªã€Šã€ˆã€”ï¼»ï½›â€œ";
+	var tailOk = "ã£ã‚ƒã‚…ã‚‡ããƒã…ã‡ã‰ãƒƒãƒ£ãƒ¥ãƒ§ã‚¡ã‚£ã‚¥ã‚§ã‚©ã€ã€‚ãƒ»ï¼Ÿï¼ã€ã€ã€‘ï¼‰ï¼â‰«ã€‹ã€‰ã€•ï¼½ï½â€";
 	var byteCount = 0;
 	var resText = "";
 	for (i = 0; i < beforeText.length; i++) {
@@ -59,7 +60,7 @@ function concatText(){
 	beforeText = document.getElementById("beforeText").value;
 	afterText = document.getElementById("afterText").value;
 
-	var periodStr = "BHIvjh";
+	var periodStr = "ã€‚ï¼Ÿï¼ã€ï¼‰â€";
 	var resText = "";
 	var beginPos = 0;
 	var nextPos = 0;
@@ -85,12 +86,12 @@ function rollbackText(){
 function checkRowLenTxt(){
 	var rowLenTxt = document.getElementById("txtByteOnRow").value;
 	if (isNaN(rowLenTxt)){
-		alert('1s“–‚½‚è‚Ì•¶š”‚Í”’l‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢');
+		alert('1è¡Œå½“ãŸã‚Šã®æ–‡å­—æ•°ã¯æ•°å€¤ã§å…¥åŠ›ã—ã¦ãã ã•ã„');
 		return false;
 	}
 	rowLen = parseInt(rowLenTxt, 10);
 	if (rowLen <1) {
-		alert('1s“–‚½‚è‚Ì•¶š”‚Í1ˆÈã‚Ì®”‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢');
+		alert('1è¡Œå½“ãŸã‚Šã®æ–‡å­—æ•°ã¯1ä»¥ä¸Šã®æ•´æ•°ã§å…¥åŠ›ã—ã¦ãã ã•ã„');
 		return false;
 	}
 	return true;
